@@ -1,6 +1,10 @@
 const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
 const COLOR_DARK = 0x260e04;
+const CONTENEDOR_WIDTH = 75;
+const CONTENEDOR_HEIGHT = 40;
+const GRID_ROWS = 4;
+const GRID_COLS = 10;
 
 export class Simulador extends Phaser.Scene {
 
@@ -21,6 +25,8 @@ export class Simulador extends Phaser.Scene {
 
     create() {
         this.add.image(675, 500, "buque");
+
+        this.drawGrid();
 
         var scene = this;
 
@@ -77,6 +83,27 @@ export class Simulador extends Phaser.Scene {
 
         }).layout();
     }
+
+    drawGrid() {
+        var graphics = this.add.graphics();
+        graphics.lineStyle(1, 0xffffff, 1);
+
+        for (var i = 0; i <= GRID_COLS; i++) {
+            var x = 675 - (GRID_COLS / 2) * CONTENEDOR_WIDTH + i * CONTENEDOR_WIDTH;
+            graphics.moveTo(x, 500 - (GRID_ROWS / 2) * CONTENEDOR_HEIGHT);
+            graphics.lineTo(x, 500 + (GRID_ROWS / 2) * CONTENEDOR_HEIGHT);
+        }
+
+        for (var j = 0; j <= GRID_ROWS; j++) {
+            var y = 500 - (GRID_ROWS / 2) * CONTENEDOR_HEIGHT + j * CONTENEDOR_HEIGHT;
+            graphics.moveTo(675 - (GRID_COLS / 2) * CONTENEDOR_WIDTH, y);
+            graphics.lineTo(675 + (GRID_COLS / 2) * CONTENEDOR_WIDTH, y);
+        }
+
+        graphics.strokePath();
+    }
 }
+
+
 
 
