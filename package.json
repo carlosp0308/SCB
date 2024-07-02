@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "mysql": "^2.18.1",
     "phaser3-rex-plugins": "^1.80.4"
   }
 }
