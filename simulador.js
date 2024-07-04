@@ -15,6 +15,7 @@ export class Simulador extends Phaser.Scene {
     preload() {
         this.load.image("contenedor-blanco", "images/contenedor-blanco.png");
         this.load.image("buque", "images/buque.png");
+        this.load.image("guardar", "images/guardar.png");
 
         this.load.scenePlugin({
             key: 'rexuiplugin',
@@ -25,6 +26,9 @@ export class Simulador extends Phaser.Scene {
 
     create() {
         this.add.image(675, 500, "buque");
+        const guardar = this.add.image(900, 700, "guardar").setInteractive();
+        guardar.setScale(0.2);
+        
 
         this.drawGrid();
 
