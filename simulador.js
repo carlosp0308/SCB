@@ -3,10 +3,11 @@ import { Contenedor } from './Contenedor.js';
 const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
 const COLOR_DARK = 0x260e04;
-const CONTENEDOR_WIDTH = 75;
-const CONTENEDOR_HEIGHT = 40;
-const GRID_ROWS = 4;
-const GRID_COLS = 10;
+const CELL_SIZE = 40; // Tamaño de cada celda
+const CONTAINER_AREA_X = 50; // X de la esquina superior izquierda del área de contenedores
+const CONTAINER_AREA_Y = 70; // Y de la esquina superior izquierda del área de contenedores
+const CONTAINER_AREA_WIDTH = 200; // Ancho del área de contenedores
+const CONTAINER_AREA_HEIGHT = 400; // Alto del área de contenedores
 
 export class Simulador extends Phaser.Scene {
     constructor() {
@@ -31,8 +32,13 @@ export class Simulador extends Phaser.Scene {
     }
 
     create(data) {
-        this.add.image(675, 500, "buque");
-        this.drawGrid();
+        this.add.image(675, 615, "buque");
+
+        // Dibujar el área de contenedores (opcional, solo para visualización)
+       // const graphics = this.add.graphics();
+       // graphics.lineStyle(2, 0xff0000);
+       // graphics.strokeRect(CONTAINER_AREA_X, CONTAINER_AREA_Y, CONTAINER_AREA_WIDTH, CONTAINER_AREA_HEIGHT);
+
         var scene = this;
 
         var dropDownList = this.rexUI.add.dropDownList({
@@ -68,6 +74,10 @@ export class Simulador extends Phaser.Scene {
                         gameObject.x = dragX;
                         gameObject.y = dragY;
                     });
+
+                    scene.input.on('dragend', function (pointer, gameObject) {
+                        // No hacemos nada especial aquí por ahora
+                    });
                 },
 
                 onButtonOver: function (button, index, pointer, event) {
@@ -85,7 +95,6 @@ export class Simulador extends Phaser.Scene {
             value: undefined
 
         }).layout();
-        
 
         // Crear contenedores basados en los datos recibidos
         if (data) {
@@ -93,21 +102,21 @@ export class Simulador extends Phaser.Scene {
         }
 
         // Botón para guardar la posición de los contenedores
-        var saveButton = this.add.image(50, this.cameras.main.height - 50, 'guardar').setInteractive();
+        var saveButton = this.add.image(50, this.cameras.main.height - 30, 'guardar').setInteractive();
         saveButton.setScale(0.25);
         saveButton.on('pointerdown', () => {
             this.promptForSaveName();
         });
 
         // Botón para cargar la posición de los contenedores
-        var loadButton = this.add.image(150, this.cameras.main.height - 50, 'cargar').setInteractive();
+        var loadButton = this.add.image(150, this.cameras.main.height - 30, 'cargar').setInteractive();
         loadButton.setScale(0.05);
         loadButton.on('pointerdown', () => {
             this.showLoadOptions();
         });
 
         // Botón para volver a la escena IngresarDatos
-        var backButton = this.add.image(250, this.cameras.main.height - 50, 'volver').setInteractive();
+        var backButton = this.add.image(250, this.cameras.main.height - 30, 'volver').setInteractive();
         backButton.setScale(0.125);
         backButton.on('pointerdown', () => {
             this.scene.start('IngresarDatos');
@@ -115,30 +124,41 @@ export class Simulador extends Phaser.Scene {
     }
 
     createContainers(data) {
-        const totalContainers = data.reduce((sum, item) => sum + item.cantidad, 0);
-        const positions = this.getRandomPositions(totalContainers);
-        let index = 0;
+        let x = CONTAINER_AREA_X + CELL_SIZE / 2;
+        let y = CONTAINER_AREA_Y + CELL_SIZE / 2;
+        let positions = [];
+        let isAreaFull = false;
+
+        // Generar posiciones iniciales
+        while (x < CONTAINER_AREA_X + CONTAINER_AREA_WIDTH) {
+            while (y < CONTAINER_AREA_Y + CONTAINER_AREA_HEIGHT) {
+                positions.push({ x, y });
+                y += CELL_SIZE;
+            }
+            y = CONTAINER_AREA_Y + CELL_SIZE / 2;
+            x += CELL_SIZE;
+        }
+
+        let positionIndex = 0;
 
         data.forEach(item => {
             for (let i = 0; i < item.cantidad; i++) {
-                const { x, y } = positions[index++];
-                const contenedor = new Contenedor(this, x, y, item.tipo, 0.0125, item.peso, this.containerId++);
-                this.contenedores.push(contenedor);
+                if (positionIndex < positions.length) {
+                    const pos = positions[positionIndex];
+                    const contenedor = new Contenedor(this, pos.x, pos.y, item.tipo, 0.0125, item.peso, this.containerId++);
+                    this.contenedores.push(contenedor);
+                    positionIndex++;
+                } else {
+                    isAreaFull = true;
+                    positionIndex = 0;
+                    const pos = positions[positionIndex];
+                    const contenedor = new Contenedor(this, pos.x, pos.y, item.tipo, 0.0125, item.peso, this.containerId++);
+                    this.contenedores.push(contenedor);
+                    positionIndex++;
+                }
             }
         });
     }
-
-    getRandomPositions(count) {
-        const positions = [];
-        for (let i = 0; i < count; i++) {
-            positions.push({
-                x: Phaser.Math.Between(50, this.cameras.main.width - 50),
-                y: Phaser.Math.Between(50, this.cameras.main.height - 50)
-            });
-        }
-        return positions;
-    }
-
     // Función para cargar datos
     loadContainerPositions(nombre) {
         // Eliminar contenedores existentes y sus etiquetas
@@ -202,23 +222,5 @@ export class Simulador extends Phaser.Scene {
             }
         })
         .catch(error => console.error('Error:', error));
-    }
-    drawGrid() {
-        var graphics = this.add.graphics();
-        graphics.lineStyle(1, 0xffffff, 1);
-
-        for (var i = 0; i <= GRID_COLS; i++) {
-            var x = 675 - (GRID_COLS / 2) * CONTENEDOR_WIDTH + i * CONTENEDOR_WIDTH;
-            graphics.moveTo(x, 500 - (GRID_ROWS / 2) * CONTENEDOR_HEIGHT);
-            graphics.lineTo(x, 500 + (GRID_ROWS / 2) * CONTENEDOR_HEIGHT);
-        }
-
-        for (var j = 0; j <= GRID_ROWS; j++) {
-            var y = 500 - (GRID_ROWS / 2) * CONTENEDOR_HEIGHT + j * CONTENEDOR_HEIGHT;
-            graphics.moveTo(675 - (GRID_COLS / 2) * CONTENEDOR_WIDTH, y);
-            graphics.lineTo(675 + (GRID_COLS / 2) * CONTENEDOR_WIDTH, y);
-        }
-
-        graphics.strokePath();
     }
 }
