@@ -15,44 +15,43 @@ export class Contenedor {
 
         // Hacer que el texto siga al contenedor
         scene.input.setDraggable(this.sprite);
-        this.sprite.on('drag', (pointer, dragX, dragY) => {
-            this.sprite.x = dragX;
-            this.sprite.y = dragY;
-            this.text.x = dragX;
-            this.text.y = dragY;
-        });
+        this.sprite.on('drag', this.handleDrag.bind(this));
     }
 
-    // Método para destruir el contenedor y su etiqueta
+    handleDrag(pointer, dragX, dragY) {
+        this.sprite.x = dragX;
+        this.sprite.y = dragY;
+        this.updateTextPosition(dragX, dragY);
+    }
+
+    updateTextPosition(x, y) {
+        this.text.x = x;
+        this.text.y = y;
+    }
+
     destroy() {
         this.sprite.destroy();
         this.text.destroy();
     }
 
-    // Método para obtener la posición del contenedor
     getPosition() {
         return { x: this.sprite.x, y: this.sprite.y };
     }
 
-    // Método para obtener el peso del contenedor
     getPeso() {
         return this.sprite.peso;
     }
 
-    // Método para obtener el ID del contenedor
     getId() {
         return this.sprite.id;
     }
 
-    // Método para establecer la posición del contenedor
     setPosition(x, y) {
         this.sprite.x = x;
         this.sprite.y = y;
-        this.text.x = x;
-        this.text.y = y;
+        this.updateTextPosition(x, y);
     }
 
-    // Método para obtener el tipo de contenedor (blanco o azul)
     getTexture() {
         return this.sprite.texture.key;
     }
