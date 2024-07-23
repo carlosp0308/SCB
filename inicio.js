@@ -13,4 +13,5 @@ export class Inicio extends Phaser.Scene {
             this.scene.start("IngresarDatos");
         });
     }
+
 }

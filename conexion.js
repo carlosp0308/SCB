@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors'); // Asegúrate de tener cors instalado
 
 const app = express();
@@ -21,6 +22,12 @@ db.connect(err => {
         throw err;
     }
     console.log('Conectado a la base de datos MySQL');
+});
+
+app.use(express.static(__dirname));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // Ruta para cargar datos
