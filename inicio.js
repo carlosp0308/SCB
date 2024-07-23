@@ -1,7 +1,8 @@
-export class Inicio extends Phaser.Scene {
 
+
+export class Inicio extends Phaser.Scene {
     constructor() {
-        super({key: "Inicio"});
+        super({ key: "Inicio" });
     }
 
     preload() {
@@ -9,11 +10,11 @@ export class Inicio extends Phaser.Scene {
     }
 
     create() {
-        let botonInicio = this.add.image(300, 350, "botonInicio").setInteractive();
-        botonInicio.on("pointerdown" , () => {
-            this.scene.start("Simulador");
-        })
-        
+       
 
+        let botonInicio = this.add.image(300, 350, "botonInicio").setInteractive();
+        botonInicio.on("pointerdown", () => {
+            this.scene.start("IngresarDatos");
+        });
     }
 }

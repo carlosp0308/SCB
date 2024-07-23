@@ -1,42 +1,58 @@
-class Contenedor {
-    constructor(id, tipo, longitud, peso) {
-        this.id = id;
-        this.tipo = tipo;
-        this.longitud = longitud;
-        this.peso = peso;
+export class Contenedor {
+    constructor(scene, x, y, texture, scale, peso, id) {
+        this.scene = scene;
+        this.sprite = scene.add.image(x, y, texture);
+        this.sprite.setScale(scale);
+        this.sprite.setInteractive();
+        this.sprite.id = id; // Asignar un ID incremental
+        this.sprite.peso = peso; // Asignar el peso al contenedor
+
+        // Añadir etiqueta de texto para el peso
+        this.text = scene.add.text(x, y, `${peso}t`, {
+            fontSize: '24px', fill: '#000', fontStyle: 'bold', stroke: '#fff', strokeThickness: 2
+        });
+        this.text.setOrigin(0.5, 0.5); // Centrar el texto
+
+        // Hacer que el texto siga al contenedor
+        scene.input.setDraggable(this.sprite);
+        this.sprite.on('drag', this.handleDrag.bind(this));
     }
 
-    get getId() {
-        return this.id;
+    handleDrag(pointer, dragX, dragY) {
+        this.sprite.x = dragX;
+        this.sprite.y = dragY;
+        this.updateTextPosition(dragX, dragY);
     }
 
-    set setId(id) {
-        this.id = id;
+    updateTextPosition(x, y) {
+        this.text.x = x;
+        this.text.y = y;
     }
 
-    get getTipo() {
-        return this.tipo;
+    destroy() {
+        this.sprite.destroy();
+        this.text.destroy();
     }
 
-    set setTipo(tipo) {
-        this.tipo = tipo;
+    getPosition() {
+        return { x: this.sprite.x, y: this.sprite.y };
     }
 
-    get getLongitud() {
-        return this.longitud;
+    getPeso() {
+        return this.sprite.peso;
     }
 
-    set setLongitud(longitud) {
-        this.longitud = longitud;
+    getId() {
+        return this.sprite.id;
     }
 
-    get getPeso() {
-        return this.peso;
+    setPosition(x, y) {
+        this.sprite.x = x;
+        this.sprite.y = y;
+        this.updateTextPosition(x, y);
     }
 
-    set setPeso(peso) {
-        this.peso = peso;
+    getTexture() {
+        return this.sprite.texture.key;
     }
-
-
 }
