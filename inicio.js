@@ -1,5 +1,3 @@
-
-
 export class Inicio extends Phaser.Scene {
     constructor() {
         super({ key: "Inicio" });
@@ -10,8 +8,6 @@ export class Inicio extends Phaser.Scene {
     }
 
     create() {
-       
-
         let botonInicio = this.add.image(300, 350, "botonInicio").setInteractive();
         botonInicio.on("pointerdown", () => {
             this.scene.start("IngresarDatos");
