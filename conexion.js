@@ -23,6 +23,12 @@ db.connect(err => {
     console.log('Conectado a la base de datos MySQL');
 });
 
+app.use(express.static(__dirname));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Ruta para cargar datos
 app.get('/api/cargar', (req, res) => {
     let sql = 'SELECT nombre, json_data FROM contenedores';

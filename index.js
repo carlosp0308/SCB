@@ -1,5 +1,5 @@
 import {Simulador} from "./simulador.js";
-import { IngresarDatos } from './IngresarDatos';
+import { IngresarDatos } from "./IngresarDatos.js";
 import { Inicio } from "./inicio.js";
 
 const config = {
