@@ -232,7 +232,7 @@ export class Simulador extends Phaser.Scene {
             
                 console.log('Datos enviados al backend:', JSON.stringify({ areas: areasInfo }, null, 2));
             
-                fetch('http://localhost:8080/api/reubicacion', {
+                fetch('http://localhost:3000/api/reubicacion', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ areas: areasInfo })
