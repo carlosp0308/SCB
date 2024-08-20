@@ -143,7 +143,7 @@ export class Simulador extends Phaser.Scene {
          this.cuadricula.getContenedores().forEach(contenedor => contenedor.destroy());
          this.cuadricula.contenedores = [];
 
-              fetch('http://localhost:3000/api/cargar')
+            fetch('http://localhost:3000/api/cargar')
             .then(response => response.json())
             .then(data => {
                 const savedData = data.find(item => item.nombre === nombre);
