@@ -55,7 +55,7 @@ export class Simulador extends Phaser.Scene {
             this.createContainers(data.data);
         }
 
-        // Registrar eventos de arrastre
+        // Registrar eventos de arrastre.
         this.input.on('drag', this.handleDrag, this);
         this.input.on('dragend', this.handleDragEnd, this);
     }
