@@ -262,3 +262,4 @@ export class Simulador extends Phaser.Scene {
     
 
 }
+
