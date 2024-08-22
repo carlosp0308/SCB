@@ -10,4 +10,4 @@ const config = {
     scene: [Inicio, IngresarDatos, Simulador]
 }
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
