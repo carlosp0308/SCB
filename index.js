@@ -1,5 +1,5 @@
 import {Simulador} from "./simulador.js";
-import { IngresarDatos } from "./IngresarDatos.js";
+import { IngresarDatos } from './IngresarDatos';
 import { Inicio } from "./inicio.js";
 
 const config = {
@@ -10,4 +10,4 @@ const config = {
     scene: [Inicio, IngresarDatos, Simulador]
 }
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

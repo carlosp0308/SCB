@@ -1,0 +1,12 @@
+com\example\demo\DemoApplication.class
+com\example\demo\controller\ReubicacionController.class
+com\example\demo\model\Contenedor.class
+com\example\demo\service\AreaService.class
+com\example\demo\controller\ContenedorController.class
+com\example\demo\config\CorsConfig$1.class
+com\example\demo\service\ContenedorService.class
+com\example\demo\config\CorsConfig.class
+com\example\demo\repository\ContenedorRepository.class
+com\example\demo\service\ReubicacionService.class
+com\example\demo\model\Area.class
+com\example\demo\model\InfoAreas.class
