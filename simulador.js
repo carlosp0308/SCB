@@ -106,7 +106,6 @@ export class Simulador extends Phaser.Scene {
         let x = AREAS[0].x + this.cuadricula.cellSize / 2;
         let y = AREAS[0].y + this.cuadricula.cellSize / 2;
         let positions = [];
-        let isAreaFull = false;
 
         // Generar posiciones iniciales en la primera área
         while (x < AREAS[0].x + AREAS[0].width) {
@@ -128,7 +127,6 @@ export class Simulador extends Phaser.Scene {
                     this.cuadricula.addContenedor(contenedor);
                     positionIndex++;
                 } else {
-                    isAreaFull = true;
                     positionIndex = 0;
                     const pos = positions[positionIndex];
                     const contenedor = new Contenedor(this, pos.x, pos.y, item.tipo, 0.0125, item.peso, this.containerId++);
