@@ -1,5 +1,3 @@
-
-
 export class IngresarDatos extends Phaser.Scene {
     constructor() {
         super({ key: "IngresarDatos" });
