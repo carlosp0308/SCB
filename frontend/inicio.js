@@ -1,12 +1,10 @@
-
-
 export class Inicio extends Phaser.Scene {
     constructor() {
         super({ key: "Inicio" });
     }
 
     preload() {
-        this.load.image("botonInicio", "images/botonInicio.png");
+        this.load.image("botonInicio", "/images/botonInicio.png");
     }
 
     create() {

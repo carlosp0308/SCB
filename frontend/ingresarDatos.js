@@ -4,7 +4,7 @@ export class IngresarDatos extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("confirmar", "images/confirmar.png");
+        this.load.image("confirmar", "/images/confirmar.png");
         this.load.css('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
     }
 

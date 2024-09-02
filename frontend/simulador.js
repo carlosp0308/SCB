@@ -1,5 +1,5 @@
 import { Contenedor } from './contenedor.js';
-import { Cuadricula } from './Cuadricula.js';
+import { Cuadricula } from './cuadricula.js';
 
 const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
@@ -30,12 +30,12 @@ export class Simulador extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("contenedor-blanco", "images/contenedor-blanco.png");
-        this.load.image("contenedor-azul", "images/contenedor-azul.png");
-        this.load.image("buque", "images/buque.png");
-        this.load.image("guardar", "images/guardar.png");
-        this.load.image("cargar", "images/cargar.png");
-        this.load.image("volver", "images/volver.png");
+        this.load.image("contenedor-blanco", "/images/contenedor-blanco.png");
+        this.load.image("contenedor-azul", "/images/contenedor-azul.png");
+        this.load.image("buque", "/images/buque.png");
+        this.load.image("guardar", "/images/guardar.png");
+        this.load.image("cargar", "/images/cargar.png");
+        this.load.image("volver", "/images/volver.png");
 
         this.load.scenePlugin({
             key: 'rexuiplugin',

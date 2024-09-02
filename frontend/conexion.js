@@ -9,7 +9,7 @@ const port = 3000; // Cambiar el puerto si es necesario
 
 app.use(bodyParser.json());
 app.use(cors()); // Para permitir solicitudes CORS
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname))); // Servir archivos estáticos desde 'frontend'
 
 const db = mysql.createConnection({
     host: 'localhost',
