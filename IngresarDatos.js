@@ -7,6 +7,7 @@ export class IngresarDatos extends Phaser.Scene {
 
     preload() {
         this.load.image("confirmar", "images/confirmar.png");
+        this.load.css('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
     }
 
     create() {
@@ -16,20 +17,20 @@ export class IngresarDatos extends Phaser.Scene {
         const formHTML = `
             <form id="dataForm" style="position: absolute; top: 50px; left: 50px;">
                 <div id="contenedores">
-                    <div class="contenedor">
-                        <label for="peso">Peso (1-10 toneladas):</label>
-                        <input type="number" class="peso" min="1" max="10" step="0.1" value="1"><br>
-                        <label for="cantidad">Cantidad:</label>
-                        <input type="number" class="cantidad" min="1" value="1"><br>
-                        <label for="tipo">Tipo:</label>
-                        <select class="tipo">
+                    <div class="contenedor form-group">
+                        <label for="peso" class="control-label">Peso (1-10 toneladas):</label>
+                        <input type="number" class="form-control peso" min="1" max="10" step="0.1" value="1"><br>
+                        <label for="cantidad" class="control-label">Cantidad:</label>
+                        <input type="number" class="form-control cantidad" min="1" value="1"><br>
+                        <label for="tipo" class="control-label">Tipo:</label>
+                        <select class="form-control tipo">
                             <option value="contenedor-blanco">Tipo A</option>
                             <option value="contenedor-azul">Tipo B</option>
                         </select>
                     </div>
                 </div>
-                <button type="button" id="agregarButton">Agregar otro contenedor</button><br><br>
-                <button type="button" id="confirmarButton">Confirmar</button>
+            <button type="button" id="agregarButton" class="btn btn-primary">Agregar otro contenedor</button><br><br>
+            <button type="button" id="confirmarButton" class="btn btn-success">Confirmar</button>
             </form>
         `;
         const formElement = document.createElement('div');
@@ -40,16 +41,16 @@ export class IngresarDatos extends Phaser.Scene {
         document.getElementById('agregarButton').addEventListener('click', () => {
             const contenedoresDiv = document.getElementById('contenedores');
             const newContenedorHTML = `
-                <div class="contenedor">
-                    <label for="peso">Peso (1-10 toneladas):</label>
-                    <input type="number" class="peso" min="1" max="10" step="0.1" value="1"><br>
-                    <label for="cantidad">Cantidad:</label>
-                    <input type="number" class="cantidad" min="1" value="1"><br>
-                    <label for="tipo">Tipo:</label>
-                    <select class="tipo">
+                <div class="contenedor form-group">
+                    <label for="peso" class="control-label">Peso (1-10 toneladas):</label>
+                    <input type="number" class="form-control peso" min="1" max="10" step="0.1" value="1"><br>
+                    <label for="cantidad" class="control-label">Cantidad:</label>
+                    <input type="number" class="form-control cantidad" min="1" value="1"><br>
+                    <label for="tipo" class="control-label">Tipo:</label>
+                    <select class="form-control tipo">
                         <option value="contenedor-blanco">Tipo A</option>
                         <option value="contenedor-azul">Tipo B</option>
-                    </select>
+                        </select>
                 </div>
             `;
             const newContenedorElement = document.createElement('div');
