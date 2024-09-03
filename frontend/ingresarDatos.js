@@ -75,7 +75,8 @@ export class IngresarDatos extends Phaser.Scene {
         // Agregar funcionalidad al botón "Eliminar último contenedor"
         document.getElementById('eliminarButton').addEventListener('click', () => {
             const contenedoresDiv = document.getElementById('contenedores');
-            if (contenedoresDiv.lastElementChild) {
+            // Verificar que haya más de un contenedor antes de eliminar
+            if (contenedoresDiv.children.length > 1) {
                 contenedoresDiv.removeChild(contenedoresDiv.lastElementChild);
             }
         });
