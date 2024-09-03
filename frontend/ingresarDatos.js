@@ -9,7 +9,6 @@ export class IngresarDatos extends Phaser.Scene {
     }
 
     create() {
-        
 
         // Agregar el formulario de ingreso de datos
         const formHTML = `
