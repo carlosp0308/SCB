@@ -4,7 +4,6 @@ export class IngresarDatos extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("confirmar", "/images/confirmar.png");
         this.load.css('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
     }
 
@@ -12,8 +11,22 @@ export class IngresarDatos extends Phaser.Scene {
 
         // Agregar el formulario de ingreso de datos
         const formHTML = `
-            <form id="dataForm" style="position: absolute; top: 50px; left: 50px;">
-                <div id="contenedores">
+             <form id="dataForm" style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 400px; /* Ajusta el ancho según sea necesario */
+                padding: 20px;
+                background-color: #f0f0f0;
+                border: 2px solid #ccc;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            ">
+                <div id="contenedores" style="
+                    max-height: 300px; /* Ajusta la altura máxima según sea necesario */
+                    overflow-y: auto; /* Muestra la barra de desplazamiento si es necesario */
+                ">
                     <div class="contenedor form-group">
                         <label for="peso" class="control-label">Peso (1-10 toneladas):</label>
                         <input type="number" class="form-control peso" min="1" max="10" step="0.1" value="1"><br>
@@ -26,8 +39,9 @@ export class IngresarDatos extends Phaser.Scene {
                         </select>
                     </div>
                 </div>
-            <button type="button" id="agregarButton" class="btn btn-primary">Agregar otro contenedor</button><br><br>
-            <button type="button" id="confirmarButton" class="btn btn-success">Confirmar</button>
+                <button type="button" id="agregarButton" class="btn btn-primary">Agregar otro contenedor</button><br><br>
+                <button type="button" id="eliminarButton" class="btn btn-danger">Eliminar último contenedor</button><br><br>
+                <button type="button" id="confirmarButton" class="btn btn-success">Confirmar</button>
             </form>
         `;
         const formElement = document.createElement('div');
@@ -53,6 +67,17 @@ export class IngresarDatos extends Phaser.Scene {
             const newContenedorElement = document.createElement('div');
             newContenedorElement.innerHTML = newContenedorHTML;
             contenedoresDiv.appendChild(newContenedorElement);
+
+            // Hacer scroll hacia abajo cuando se agrega un nuevo contenedor
+            contenedoresDiv.scrollTop = contenedoresDiv.scrollHeight;
+        });
+
+        // Agregar funcionalidad al botón "Eliminar último contenedor"
+        document.getElementById('eliminarButton').addEventListener('click', () => {
+            const contenedoresDiv = document.getElementById('contenedores');
+            if (contenedoresDiv.lastElementChild) {
+                contenedoresDiv.removeChild(contenedoresDiv.lastElementChild);
+            }
         });
 
         // Botón de confirmar
