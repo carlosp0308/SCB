@@ -22,7 +22,7 @@ public class ReubicacionController {
         infoAreas.getAreas().forEach(area -> {
             System.out.println("Area ID: " + area.getId());
             area.getContenedores().forEach(contenedor -> {
-                System.out.println("Contenedor ID: " + contenedor.getId() + ", Tipo: " + contenedor.getTipo() + ", Peso: " + contenedor.getPeso());
+                System.out.println("Contenedor ID: " + contenedor.getId() + ", Tipo: " + contenedor.getTipo() + ", Peso: " + contenedor.getPeso() + ", Nivel: " + contenedor.getNivel());
             });
         });
 

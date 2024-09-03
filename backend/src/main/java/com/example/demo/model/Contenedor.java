@@ -12,9 +12,11 @@ public class Contenedor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String tipo;
+    private int nivel;
     private double peso;
     private double x; 
     private double y; 
+    
 
     // Getters y Setters
     public Long getId() {
@@ -57,5 +59,13 @@ public class Contenedor {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 }
