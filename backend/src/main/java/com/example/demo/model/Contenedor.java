@@ -43,8 +43,6 @@ public class Contenedor {
         this.peso = peso;
     }
 
-
-
     public double getX() {
         return x;
     }

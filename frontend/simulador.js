@@ -125,7 +125,6 @@ export class Simulador extends Phaser.Scene {
           contenedor.updateTextPosition(snappedPosition.x, snappedPosition.y);
         }
       }
-      this.cuadricula.updateNiveles(); // Update levels after snapping container to closest area
     }
   }
 
@@ -162,31 +161,6 @@ export class Simulador extends Phaser.Scene {
       }
     });
     this.cuadricula.updateNiveles(); // Update levels after creating all containers
-  }
-
-  updateNivelDeContenedoresDebajo(contenedor) {
-    const containers = this.cuadricula.getContenedores();
-    const containersDebajo = containers.filter(
-      (c) =>
-        c.x === contenedor.x && c.y === contenedor.y && c.id !== contenedor.id
-    );
-
-    containersDebajo.forEach((c) => {
-      c.sprite.nivel++;
-    });
-  }
-
-  getNivel(x, y) {
-    const containers = this.cuadricula.getContenedores();
-    const containerAtPosition = containers.find(
-      (container) => container.x === x && container.y === y
-    );
-
-    if (containerAtPosition) {
-      return containerAtPosition.sprite.nivel;
-    } else {
-      return 0;
-    }
   }
 
   loadContainerPositions(nombre) {

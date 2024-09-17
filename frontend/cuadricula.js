@@ -127,8 +127,35 @@ export class Cuadricula {
   }
 
   updateNiveles() {
-    this.contenedores.forEach((contenedor, index) => {
-      contenedor.sprite.nivel = index + 1; // Update the nivel property
+    this.areas.forEach((area) => {
+      // Filtramos los contenedores que están dentro de esta área y los ordenamos por su posición Y
+      const contenedoresEnArea = this.contenedores
+        .filter((contenedor) => {
+          const pos = contenedor.getPosition();
+          return (
+            pos.x >= area.x &&
+            pos.x < area.x + area.width &&
+            pos.y >= area.y &&
+            pos.y < area.y + area.height
+          );
+        })
+        .sort((a, b) => a.getPosition().y - b.getPosition().y); // Ordenar de abajo hacia arriba
+  
+      // Asignamos el nivel dependiendo de la posición en Y
+      contenedoresEnArea.forEach((contenedor, index) => {
+        if (index === 0) {
+          contenedor.sprite.nivel = 1; // El contenedor más abajo tiene nivel 1
+        } else {
+          // Si está apilado sobre el anterior (misma X, mayor Y), se le asigna un nivel mayor
+          const contenedorAnterior = contenedoresEnArea[index - 1];
+          if (contenedor.getPosition().x === contenedorAnterior.getPosition().x) {
+            contenedor.sprite.nivel = contenedorAnterior.sprite.nivel + 1;
+          } else {
+            contenedor.sprite.nivel = 1; // Si no está apilado, empieza en nivel 1
+          }
+        }
+      });
     });
   }
+  
 }
