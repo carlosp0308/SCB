@@ -22,7 +22,7 @@ export class Inicio extends Phaser.Scene {
             shadow: { offsetX: 2, offsetY: 2, color: '#000000', blur: 4 },
             align: 'center'
         });
-        titulo.setOrigin(0.5, 0); // Centra el texto horizontalmente en el punto dado
+        titulo.setOrigin(0.5, 0);
 
         // Subtítulo
         let subtitulo = this.add.text(this.scale.width / 2, titulo.y + 80, '(Simulador de Carga en Buques)', {
@@ -33,36 +33,36 @@ export class Inicio extends Phaser.Scene {
             shadow: { offsetX: 1, offsetY: 1, color: '#000000', blur: 2 },
             align: 'center'
         });
-        subtitulo.setOrigin(0.5, 0); // Centra el texto horizontalmente en el punto dado
+        subtitulo.setOrigin(0.5, 0);
 
         // Botón de inicio
         let botonInicio = this.add.text(this.scale.width / 2, this.scale.height - 100, 'Iniciar', {
             font: '36px Arial',
-            fill: '#ffffff',
-            backgroundColor: '#ffcc00', // Color de fondo del botón
-            padding: { x: 30, y: 15 }, // Espaciado dentro del botón
-            border: '2px solid #000000', // Borde del botón
+            fill: '#0a0a0a',
+            backgroundColor: '#2699e6',
+            padding: { x: 30, y: 15 },
+            border: '2px solid #000000',
             align: 'center'
         }).setInteractive();
 
         botonInicio.setOrigin(0.5, 0.5); // Centra el texto horizontal y verticalmente
 
-        // Añadir efecto de hover
+        // Hover del boton
         botonInicio.on('pointerover', () => {
             botonInicio.setStyle({
-                fill: '#000000',
-                backgroundColor: '#ffff00' // Cambia el color de fondo cuando el ratón está sobre el botón
+                fill: '#0a0a0a',
+                backgroundColor: '#1a66cc'
             });
         });
 
         botonInicio.on('pointerout', () => {
             botonInicio.setStyle({
-                fill: '#ffffff',
-                backgroundColor: '#ffcc00' // Restaura el color de fondo original
+                fill: '#0a0a0a',
+                backgroundColor: '#2699e6'
             });
         });
 
-        // Acción al hacer clic en el botón
+        // Direccion de pagina
         botonInicio.on('pointerdown', () => {
             this.scene.start("IngresarDatos");
         });
