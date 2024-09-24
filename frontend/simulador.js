@@ -78,22 +78,41 @@ export class Simulador extends Phaser.Scene {
     }
 
     createButtons() {
-        this.createButton(50, this.cameras.main.height - 30, 'guardar', 0.25, this.promptForSaveName);
-        this.createButton(150, this.cameras.main.height - 30, 'cargar', 0.05, this.showLoadOptions);
-        this.createButton(250, this.cameras.main.height - 30, 'volver', 0.125, () => this.scene.start('IngresarDatos'));
-        this.createTextButton(950, this.cameras.main.height - 30, 'Info Areas', this.showInfoAreas.bind(this));
-        this.createTextButton(1100, this.cameras.main.height - 30, 'Reubicar Contenedores', this.reubicarContenedores.bind(this));
+        const buttonHeight = 30; // Altura de los botones
+        const buttonSpacing = 10; // Espaciado entre botones
+        const baseY = this.cameras.main.height - 20; // Base para la posición Y de los botones
+    
+        this.createStyledButton(100, baseY, 'Guardar', this.promptForSaveName, buttonHeight);
+        this.createStyledButton(250, baseY, 'Cargar', this.showLoadOptions, buttonHeight);
+        this.createStyledButton(400, baseY, 'Volver', () => this.scene.start('IngresarDatos'), buttonHeight);
+        this.createTextButton(800, baseY, 'Info Áreas', this.showInfoAreas.bind(this), buttonHeight);
+        this.createTextButton(1100, baseY, 'Reubicar Contenedores', this.reubicarContenedores.bind(this), buttonHeight);
     }
-
-    createButton(x, y, texture, scale, onClick) {
-        let button = this.add.image(x, y, texture).setInteractive().setScale(scale);
+    
+    createStyledButton(x, y, text, onClick, height) {
+        // Crear un botón rectangular con fondo amarillo
+        let button = this.add.rectangle(x, y, 150, height, 0xffeb3b).setInteractive(); // Fondo amarillo
+        button.setStrokeStyle(2, 0x000000); // Borde negro
+    
+        let buttonText = this.add.text(x, y, text, {
+            fontSize: '20px',
+            fill: '#000000', // Color del texto negro
+            fontWeight: 'bold'
+        }).setOrigin(0.5); // Centrar el texto en el botón
+    
         button.on('pointerdown', onClick, this);
+        button.on('pointerover', () => {
+            button.setFillStyle(0xffc107);
+        });
+        button.on('pointerout', () => {
+            button.setFillStyle(0xffeb3b);
+        });
     }
-
+    
     createTextButton(x, y, text, onClick) {
         let button = this.add.text(x, y, text, { fontSize: '20px', fill: '#ffffff' }).setInteractive();
         button.on('pointerdown', onClick);
-    }
+    }s
 
     handleDrag(pointer, gameObject, dragX, dragY) {
         gameObject.x = dragX;
