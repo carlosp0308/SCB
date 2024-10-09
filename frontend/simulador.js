@@ -47,8 +47,8 @@ export class Simulador extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("contenedor-blanco", "images/contenedor-blanco.png");
-        this.load.image("contenedor-azul", "images/contenedor-azul.png");
+        this.load.image("contenedor-20pies", "images/contenedor-20pies.png");
+        this.load.image("contenedor-40pies", "images/contenedor-40pies.png");
         this.load.image("buque", "images/buque.png");
         this.load.image("guardar", "images/guardar.png");
         this.load.image("cargar", "images/cargar.png");

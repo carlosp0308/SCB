@@ -37,8 +37,8 @@ export class IngresarDatos extends Phaser.Scene {
                         <input type="number" id="cantidad" class="form-control" min="1" value="1"><br>
                         <label for="tipo" class="control-label">Tipo:</label>
                         <select id="tipo" class="form-control">
-                            <option value="contenedor-blanco">Tipo A</option>
-                            <option value="contenedor-azul">Tipo B</option>
+                            <option value="contenedor-20pies">Contenedor 20 pies estandar</option>
+                            <option value="contenedor-40pies">Contenedor 40 pies estandar</option>
                         </select>
                     </div>
                     <button type="button" id="agregarButton" class="btn btn-primary btn-sm">Agregar</button><br><br>
