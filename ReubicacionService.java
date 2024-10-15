@@ -82,6 +82,7 @@ public class ReubicacionService {
         double variable3 = 0.0;
         double variable5 = 0.0;
         double variable6 = 0.0;
+
     
         System.out.println("Iniciando la comprobación de la distribución...");
     
@@ -95,97 +96,95 @@ public class ReubicacionService {
     
                 // Calcular los pesos multiplicados por sus factores para izquierda/derecha
                 if (area.getId() >= 2 && area.getId() <= 14) {
-                    variable2 += pesoArea * -10;
-                } else if (area.getId() >= 15 && area.getId() <= 27) {
                     variable2 += pesoArea * -5;
-                } else if (area.getId() >= 28 && area.getId() <= 40) {
+                } else if (area.getId() >= 15 && area.getId() <= 27) {
                     variable2 += pesoArea * -2.5;
+                } else if (area.getId() >= 28 && area.getId() <= 40) {
+                    variable2 += pesoArea * -1.5;
                 } else if (area.getId() >= 41 && area.getId() <= 53) {
-                    variable3 += pesoArea * 2.5;
+                    variable3 += pesoArea * 1.5;
                 } else if (area.getId() >= 54 && area.getId() <= 66) {
-                    variable3 += pesoArea * 5;
+                    variable3 += pesoArea * 2.5;
                 } else if (area.getId() >= 67 && area.getId() <= 79) {
-                    variable3 += pesoArea * 10;
+                    variable3 += pesoArea * 5;
                 }
     
                 // Calcular los pesos multiplicados por sus factores para arriba/abajo
                 if (List.of(2, 15, 28, 41, 54, 67).contains(area.getId())) {
-                    variable5 += pesoArea * 10;
-                } else if (List.of(3, 16, 29, 42, 55, 68).contains(area.getId())) {
                     variable5 += pesoArea * 5;
+                } else if (List.of(3, 16, 29, 42, 55, 68).contains(area.getId())) {
+                    variable5 += pesoArea * 3;
                 } else if (List.of(4, 17, 30, 43, 56, 69).contains(area.getId())) {
-                    variable5 += pesoArea * 2.5;
+                    variable5 += pesoArea * 2;
                 } else if (List.of(5, 18, 31, 44, 57, 70).contains(area.getId())) {
                     variable5 += pesoArea * 1.5;
                 } else if (List.of(6, 19, 32, 45, 58, 71).contains(area.getId())) {
-                    variable5 += pesoArea * 1;
+                    variable5 += pesoArea * 1.3;
                 } else if (List.of(7, 20, 33, 46, 59, 72).contains(area.getId())) {
-                    variable5 += pesoArea * 0.5;
+                    variable5 += pesoArea * 1.1;
                 } else if (List.of(9, 22, 35, 48, 61, 74).contains(area.getId())) {
-                    variable6 += pesoArea * -0.5;
+                    variable6 += pesoArea * -1.1;
                 } else if (List.of(10, 23, 36, 49, 62, 75).contains(area.getId())) {
-                    variable6 += pesoArea * -1;
+                    variable6 += pesoArea * -1.3;
                 } else if (List.of(11, 24, 37, 50, 63, 76).contains(area.getId())) {
                     variable6 += pesoArea * -1.5;
                 } else if (List.of(12, 25, 38, 51, 64, 77).contains(area.getId())) {
-                    variable6 += pesoArea * -2.5;
+                    variable6 += pesoArea * -2;
                 } else if (List.of(13, 26, 39, 52, 65, 78).contains(area.getId())) {
-                    variable6 += pesoArea * -5;
+                    variable6 += pesoArea * -3;
                 } else if (List.of(14, 27, 40, 53, 66, 79).contains(area.getId())) {
-                    variable6 += pesoArea * -10;
+                    variable6 += pesoArea * -5;
                 }
             }
         }
     
-        // Calcular la diferencia entre izquierda y derecha
-        double variable4 = variable2 + variable3;
-        double diferencia = pesoTotal - variable4;
-    
-        // Calcular la diferencia entre arriba y abajo
-        double variable7 = variable5 + variable6;
-        double diferencia2 = pesoTotal - variable7;
-    
-        System.out.println("Peso Total: " + pesoTotal);
-        System.out.println("Variable 2 (lado izquierdo): " + variable2);
-        System.out.println("Variable 3 (lado derecho): " + variable3);
-        System.out.println("Diferencia calculada (izquierda/derecha): " + diferencia);
-    
-        System.out.println("Variable 5 (sector superior): " + variable5);
-        System.out.println("Variable 6 (sector inferior): " + variable6);
-        System.out.println("Diferencia calculada (arriba/abajo): " + diferencia2);
-    
-        StringBuilder resultado = new StringBuilder();
-    
-        // Evaluar la diferencia izquierda/derecha
-        boolean equilibradoIzqDer = false;
-        if (diferencia >= -pesoTotal * 1.1 && diferencia <= pesoTotal * 1.1) {
-            equilibradoIzqDer = true;  // Está equilibrado en izquierda/derecha
-        } else if (diferencia < -pesoTotal * 1.5) {
-            resultado.append("Debe colocar más peso en el sector izquierdo del buque");
-        } else {
-            resultado.append("Debe colocar más peso en el sector derecho del buque");
-        }
-    
-        // Evaluar la diferencia arriba/abajo
-        if (diferencia2 >= -pesoTotal * 1.1 && diferencia2 <= pesoTotal * 1.1) {
-            if (equilibradoIzqDer) {
-                // Si ambas dimensiones están equilibradas
-                resultado.append("La distribución es óptima.");
-            }
-        } else if (diferencia2 < -pesoTotal * 1.1) {
-            if (resultado.length() > 0) {
-                resultado.append(" y en el superior del buque.");
-            } else {
-                resultado.append("Debe colocar más peso en el sector superior del buque.");
-            }
-        } else {
-            if (resultado.length() > 0) {
-                resultado.append(" y en el inferior del buque.");
-            } else {
-                resultado.append("Debe colocar más peso en el sector inferior del buque.");
-            }
-        }
-    
-        return resultado.toString();
+         // Calcular la diferencia entre izquierda y derecha (variable2 + variable3)
+    double diferenciaIzqDer = variable2 + variable3;
+
+    // Calcular la diferencia entre arriba y abajo (variable5 + variable6)
+    double diferenciaArribaAbajo = variable5 + variable6;
+
+    System.out.println("Peso Total: " + pesoTotal);
+    System.out.println("Variable 2 (lado izquierdo): " + variable2);
+    System.out.println("Variable 3 (lado derecho): " + variable3);
+    System.out.println("Izquierdo - Derecho: " + diferenciaIzqDer);
+
+    System.out.println("Variable 5 (sector superior): " + variable5);
+    System.out.println("Variable 6 (sector inferior): " + variable6);
+    System.out.println("Superior - Inferior: " + diferenciaArribaAbajo);
+
+    StringBuilder resultado = new StringBuilder();
+
+    // Evaluar la diferencia izquierda/derecha
+    boolean equilibradoIzqDer = false;
+    if (Math.abs(diferenciaIzqDer) <= pesoTotal * 0.3) {
+        equilibradoIzqDer = true;  // Está equilibrado en izquierda/derecha
+    } else if (diferenciaIzqDer < -pesoTotal * 0.3) {
+        resultado.append("Debe colocar más peso en el sector derecho del buque");
+    } else {
+        resultado.append("Debe colocar más peso en el sector izquierdo del buque");
     }
-}    
+
+    // Evaluar la diferencia arriba/abajo
+    if (Math.abs(diferenciaArribaAbajo) <= pesoTotal * 0.3) {
+        if (equilibradoIzqDer) {
+            // Si ambas dimensiones están equilibradas
+            resultado.append("La distribución es óptima.");
+        }
+    } else if (diferenciaArribaAbajo < -pesoTotal * 0.3) {
+        if (resultado.length() > 0) {
+            resultado.append(" y en el sector inferior del buque.");
+        } else {
+            resultado.append("Debe colocar más peso en el sector inferior del buque.");
+        }
+    } else {
+        if (resultado.length() > 0) {
+            resultado.append(" y en el sector superior del buque.");
+        } else {
+            resultado.append("Debe colocar más peso en el sector superior del buque.");
+        }
+    }
+
+    return resultado.toString();
+}
+}
