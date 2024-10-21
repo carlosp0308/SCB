@@ -110,7 +110,10 @@ export class Simulador extends Phaser.Scene {
     this.add.image(675, 620, "buque");
     this.cuadricula.drawAreas();
 
+    this.createTextIndicators();  // Llamar al método para agregar las etiquetas de las partes del buque
     this.createButtons();
+   
+    
 
     // Crear contenedores basados en los datos recibidos
     if (data) {
@@ -121,6 +124,49 @@ export class Simulador extends Phaser.Scene {
     this.input.on("drag", this.handleDrag, this);
     this.input.on("dragend", this.handleDragEnd, this);
   }
+
+   // Método para crear los textos indicadores en el buque
+  createTextIndicators() {
+ 
+    this.add.text(675, 490, '← Babor →', {
+      fontSize: '24px',
+      fill: '#ffffff',
+      fontWeight: 'bold',
+      backgroundColor: 'rgba(0, 0, 0, 0.4)',
+      padding: { left: 10, right: 10, top: 5, bottom: 5 }
+    }).setOrigin(0.5);  // Centrado
+
+    
+    this.add.text(675, 720, '← Estribor →', {
+      fontSize: '24px',
+      fill: '#ffffff',
+      fontWeight: 'bold',
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      padding: { left: 10, right: 10, top: 5, bottom: 5 }
+    }).setOrigin(0.5);  // Centrado
+
+  
+    this.add.text(60, 600, 'Popa↑↓', {
+      fontSize: '24px',
+      fill: '#ffffff',
+      fontWeight: 'bold',
+      backgroundColor: 'rgba(0, 0, 0, 0.4)',
+      padding: { left: 10, right: 10, top: 5, bottom: 5 }
+    }).setOrigin(0.5);  // Centrado
+
+  
+    this.add.text(1350, 600, '↑↓Proa', {
+      fontSize: '24px',
+      fill: '#ffffff',
+      fontWeight: 'bold',
+      backgroundColor: 'rgba(0, 0, 0, 0.4)',
+      padding: { left: 10, right: 10, top: 5, bottom: 5 }
+    }).setOrigin(0.5);  // Centrado
+  }
+
+
+
+
   createButtons() {
     const buttonHeight = 30; // Altura de los botones
     const baseY = this.cameras.main.height - 20; // Base para la posición Y de los botones

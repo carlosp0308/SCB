@@ -176,16 +176,16 @@ public class ReubicacionService {
       if (Math.abs(diferenciaIzqDer) > (pesoTotal * 0.5 + toleranciaBuque)) {
      // Caso de mayor diferencia (más allá del margen de 50%)
      if (diferenciaIzqDer < -(pesoTotal * 0.5 + toleranciaBuque)) {
-        equilibrio += 5;  // Se necesita más peso en el sector derecho
+        equilibrio += 5;  // Se necesita más peso en Estribor (sector derecho)
          } else {
-        equilibrio += 4;  // Se necesita más peso en el sector izquierdo
+        equilibrio += 4;  // Se necesita más peso en Babor (sector izquierdo)
         }
          } else if (Math.abs(diferenciaIzqDer) > (pesoTotal * 0.1 + toleranciaBuque)) {
          // Caso de diferencia moderada (más allá del margen de 10%)
         if (diferenciaIzqDer < -(pesoTotal * 0.1 + toleranciaBuque)) {
-          equilibrio += 3;  // Se necesita más peso en el sector derecho
+          equilibrio += 3;  // Se necesita más peso en Estribor (sector derecho)
         } else {
-         equilibrio += 2;  // Se necesita más peso en el sector izquierdo
+         equilibrio += 2;  // Se necesita más peso en Babor (sector izquierdo)
          }
           } else {
            // Caso de equilibrio óptimo
@@ -196,16 +196,16 @@ public class ReubicacionService {
          if (Math.abs(diferenciaArribaAbajo) > (pesoTotal * 0.5 + toleranciaBuque)) {
             // Caso de mayor diferencia (más allá del margen de 50%)
             if (diferenciaArribaAbajo < -(pesoTotal * 0.5 + toleranciaBuque)) {
-               equilibrio += 50;  // Se necesita más peso en el sector arriba
+               equilibrio += 50;  // Se necesita más peso en Proa (sector delantero)
             } else {
-               equilibrio += 40;  // Se necesita más peso en el sector abajo
+               equilibrio += 40;  // Se necesita más peso en Popa (sector trasero)
             }
              } else if (Math.abs(diferenciaArribaAbajo) > (pesoTotal * 0.1 + toleranciaBuque)) {
             // Caso de diferencia moderada (más allá del margen de 10%)
             if (diferenciaArribaAbajo < -(pesoTotal * 0.1 + toleranciaBuque)) {
-               equilibrio += 30;  // Se necesita más peso en el sector arriba
+               equilibrio += 30;  // Se necesita más peso en Proa (sector delantero)
             } else {
-               equilibrio += 20;  // Se necesita más peso en el sector abajo
+               equilibrio += 20;  // Se necesita más peso en Popa (sector trasero)
             }
               } else {
             // Caso de equilibrio óptimo
@@ -215,63 +215,90 @@ public class ReubicacionService {
     
              // Crear el mensaje basado en el valor de equilibrio y la dirección de la diferencia
              String resultado = "";
-             switch (equilibrio) {
-            case 11:resultado ="Distribución óptima. El buque puede zarpar sin dificultades.";
-            break;
-            case 12:resultado ="Distribución aceptable. El buque puede zarpar. Se recomienda colocar mas peso en el sector izquierdo para mejorar la distribución";
-            break;
-            case 13:resultado ="Distribución aceptable. El buque puede zarpar. Se recomienda colocar mas peso en el sector derecho para mejorar la distribución";
-            break;
-            case 14:resultado ="Distribución no aceptable. El buque no puede zarpar en estas condiciones.Se recomienda colocar mas peso en el sector izquierdo para mejorar la distribución";
-            break;
-            case 15:resultado ="Distribución no aceptable.El buque no puede zarpar en estas condiciones.Se recomienda colocar mas peso en el sector derecho para mejorar la distribución";
-            break;
-            case 21:resultado ="Distribución aceptable.El buque puede zarpar, pero se recomienda colocar mas peso en el sector arriba para mejorar la distribución.";
-            break;
-            case 22:resultado ="Distribución aceptable.El buque puede zarpar, pero se recomienda colocar mas peso en el sector arriba y el sector izquierdo pra mejorar la distribución";
-            break;
-            case 23:resultado ="Distribución aceptable.El buque puede zarpar, pero se recomienda colocar mas peso en el sector arriba y el sector derecho pra mejorar la distribución";
-            break;
-            case 24:resultado ="Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar mas peso en el sector arriba y el sector izquierdo para mejorar la distribución";
-            break;
-            case 25:resultado ="Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar mas peso en el sector arriba y el sector derecho para mejorar la distribución";
-            break;
-            case 31:resultado ="Distribución aceptable.El buque puede zarpar, pero se recomienda colocar mas peso en el sector abajo para mejorar la distribución";
-            break;
-            case 32:resultado ="Distribución aceptable.El buque puede zarpar, pero se recomienda colocar mas peso en el sector abajo y el sector izquierdo para mejorar la distribución";
-            break;
-            case 33:resultado ="Distribución aceptable.El buque puede zarpar, pero se recomienda colocar mas peso en el sector abajo y el sector derecho para mejorar la distribución";
-            break;
-            case 34:resultado ="Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar mas peso en el sector abajo y el sector izquierdo para mejorar la distribución";
-            break;
-            case 35:resultado ="Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar mas peso en el sector abajo y el sector derecho para mejorar la distribución";
-            break;
-            case 41:resultado ="Distribución aceptable.El buque puede zarpar, pero se recomienda colocar mas peso en el sector arriba para mejorar la distribución";
-            break;
-            case 42:resultado ="Distribución aceptable.El buque puede zarpar, pero se recomienda colocar mas peso en el sector arriba y el sector izquierdo para mejorar la distribución";
-            break;
-            case 43:resultado ="Distribución aceptable.El buque puede zarpar, pero se recomienda colocar mas peso en el sector arriba y el sector derecho para mejorar la distribución";
-            break;
-            case 44:resultado ="Distribución no aceptable. El buque no puede zarpar en estas condiciones.Se debe colocar mas peso en el sector arriba y el sector izquierdo para mejorar la distribución";
-            break;
-            case 45:resultado ="Distribución no aceptable. El buque no puede zarpar en estas condiciones. e debe colocar mas peso en el sector arriba y el sector derecho para mejorar la distribución";
-            break;
-            case 51:resultado ="Distribución no aceptable.El buque no puede zarpar en estas condiciones.Se debe colocar mas peso en el sector abajo para mejorar la distribución";
-            break;
-            case 52:resultado ="Distribución no aceptable.El buque no puede zarpar en estas condiciones.Se debe colocar mas peso en el sector abajo y el sector izquierdo para mejorar la distribución";
-            break;
-            case 53:resultado ="Distribución no aceptable.El buque no puede zarpar en estas condiciones.Se debe colocar mas peso en el sector abajo y el sector derecho para mejorar la distribución";
-            break;
-            case 54:resultado ="Distribución no aceptable.El buque no puede zarpar en estas condiciones.Se debe colocar mas peso en el sector abajo y el sector izquierdo para mejorar la distribución";
-            break;
-            case 55:resultado ="Distribución no aceptable.El buque no puede zarpar en estas condiciones.Se debe colocar mas peso en el sector abajo y el sector derecho para mejorar la distribución";
-            break;
 
-            default:
+             switch (equilibrio) { 
+            case 11: 
+                resultado = "Distribución óptima. El buque puede zarpar sin dificultades.";
+                break;
+            case 12: 
+                resultado = "Distribución aceptable. El buque puede zarpar. Se recomienda colocar más peso en babor (sector izquierdo) para mejorar la distribución.";
+                break;
+            case 13: 
+                resultado = "Distribución aceptable. El buque puede zarpar. Se recomienda colocar más peso en estribor (sector derecho) para mejorar la distribución.";
+                break;
+            case 14: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se recomienda colocar más peso en babor (sector izquierdo) para mejorar la distribución.";
+                break;
+            case 15: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se recomienda colocar más peso en estribor (sector derecho) para mejorar la distribución.";
+                break;
+            case 21: 
+                resultado = "Distribución aceptable. El buque puede zarpar, pero se recomienda colocar más peso en proa (sector delantero) para mejorar la distribución.";
+                break;
+            case 22: 
+                resultado = "Distribución aceptable. El buque puede zarpar, pero se recomienda colocar más peso en proa (sector delantero) y el sector izquierdo para mejorar la distribución.";
+                break;
+            case 23: 
+                resultado = "Distribución aceptable. El buque puede zarpar, pero se recomienda colocar más peso en proa (sector delantero) y el sector derecho para mejorar la distribución.";
+                break;
+            case 24: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en proa (sector delantero) y el sector izquierdo para mejorar la distribución.";
+                break;
+            case 25: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en proa (sector delantero) y el sector derecho para mejorar la distribución.";
+                break;
+            case 31: 
+                resultado = "Distribución aceptable. El buque puede zarpar, pero se recomienda colocar más peso en popa (sector trasero) para mejorar la distribución.";
+                break;
+            case 32: 
+                resultado = "Distribución aceptable. El buque puede zarpar, pero se recomienda colocar más peso en popa (sector trasero) y el sector izquierdo para mejorar la distribución.";
+                break;
+            case 33: 
+                resultado = "Distribución aceptable. El buque puede zarpar, pero se recomienda colocar más peso en popa (sector trasero) y el sector derecho para mejorar la distribución.";
+                break;
+            case 34: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en popa (sector trasero) y el sector izquierdo para mejorar la distribución.";
+                break;
+            case 35: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en popa (sector trasero) y el sector derecho para mejorar la distribución.";
+                break;
+            case 41: 
+                resultado = "Distribución aceptable. El buque puede zarpar, pero se recomienda colocar más peso en proa (sector delantero) para mejorar la distribución.";
+                break;
+            case 42: 
+                resultado = "Distribución aceptable. El buque puede zarpar, pero se recomienda colocar más peso en proa (sector delantero) y el sector izquierdo para mejorar la distribución.";
+                break;
+            case 43: 
+                resultado = "Distribución aceptable. El buque puede zarpar, pero se recomienda colocar más peso en proa (sector delantero) y el sector derecho para mejorar la distribución.";
+                break;
+            case 44: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en proa (sector delantero) y el sector izquierdo para mejorar la distribución.";
+                break;
+            case 45: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en proa (sector delantero) y el sector derecho para mejorar la distribución.";
+                break;
+            case 51: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en popa (sector trasero) para mejorar la distribución.";
+                break;
+            case 52: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en popa (sector trasero) y el sector izquierdo para mejorar la distribución.";
+                break;
+            case 53: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en popa (sector trasero) y el sector derecho para mejorar la distribución.";
+                break;
+            case 54: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en popa (sector trasero) y el sector izquierdo para mejorar la distribución.";
+                break;
+            case 55: 
+                resultado = "Distribución no aceptable. El buque no puede zarpar en estas condiciones. Se debe colocar más peso en popa (sector trasero) y el sector derecho para mejorar la distribución.";
+                break;
+
+
+             default:
                 resultado ="Revisar la distribución, el análisis no es concluyente.";
                 break;
         }
     
-        return resultado;
+             return resultado;
     }
 }
